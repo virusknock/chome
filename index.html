@@ -259,7 +259,7 @@
         <div class="date-chip">
           Ceremony · <span>06 Feb 2026 · 06:00 AM</span>
         </div>
-        <!-- <div class="small-note" id="days-absolute"></div> -->
+        <div class="small-note" id="days-absolute"></div>
       </section>
 
       <!-- Countdown -->
@@ -287,7 +287,7 @@
       <!-- Footer -->
       <footer class="footer">
         <span id="live-status">Live countdown · synced to your device time</span>
-        <span class="tiny-pill">Feb 06, 2026</span>
+        <!-- <span class="tiny-pill">Feb 06, 2026</span> -->
       </footer>
 
     </div>
@@ -319,10 +319,9 @@
         (targetMidnight - nowMidnight) / (1000 * 60 * 60 * 24)
       );
 
-      if (diffDays > 1) absoluteEl.textContent = `${diffDays} days to ceremony`;
-      else if (diffDays === 1) absoluteEl.textContent = "Ceremony is tomorrow";
+      if (diffDays === 1) absoluteEl.textContent = "Ceremony is tomorrow";
       else if (diffDays === 0) absoluteEl.textContent = "Ceremony is today";
-      else absoluteEl.textContent = "Ceremony day has passed";
+      // else absoluteEl.textContent = "Ceremony day has passed";
     }
 
     function updateCountdown() {
