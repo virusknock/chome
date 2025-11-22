@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Home Ceremony Countdown</title>
+  <title>Our New Home — Countdown</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
@@ -19,7 +19,9 @@
       --shadow-soft: 0 28px 60px rgba(0, 0, 0, 0.55);
       --radius-lg: 999px;
     }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
       min-height: 100vh;
       font-family: -apple-system, BlinkMacSystemFont, system-ui;
@@ -33,19 +35,38 @@
       overflow: hidden;
       -webkit-font-smoothing: antialiased;
     }
+
     body::before, body::after {
       content: "";
       position: absolute;
-      width: 420px; height: 420px;
+      width: 420px;
+      height: 420px;
       border-radius: 50%;
       filter: blur(60px);
       opacity: 0.35;
       pointer-events: none;
       z-index: 0;
     }
-    body::before { background: #facc15; top: -140px; right: -80px; }
-    body::after { background: #4c1d95; bottom: -160px; left: -120px; }
-    .shell { position: relative; z-index: 1; width: 100%; max-width: 780px; }
+
+    body::before {
+      background: #facc15;
+      top: -140px;
+      right: -80px;
+    }
+
+    body::after {
+      background: #4c1d95;
+      bottom: -160px;
+      left: -120px;
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 780px;
+    }
+
     .frame {
       background: var(--bg-soft);
       border-radius: 32px;
@@ -55,13 +76,14 @@
       backdrop-filter: blur(26px) saturate(140%);
     }
 
-    /* Top Badge and House Name */
+    /* Top section */
     .top-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 24px;
     }
+
     .badge {
       display: inline-flex;
       align-items: center;
@@ -75,13 +97,21 @@
       color: var(--text-muted);
       letter-spacing: 0.08em;
     }
+
     .dot {
-      width: 7px; height: 7px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--accent);
       box-shadow: 0 0 0 6px var(--accent-soft);
     }
-    .house-label { text-align: right; color: var(--text-soft); font-size: 12px; }
+
+    .house-label {
+      text-align: right;
+      color: var(--text-soft);
+      font-size: 12px;
+    }
+
     .house-name {
       font-size: 13px;
       font-weight: 600;
@@ -96,19 +126,26 @@
       font-weight: 650;
       margin-bottom: 6px;
     }
+
     .hero-subtitle {
       font-size: 14px;
       color: var(--text-muted);
       max-width: 480px;
     }
-    .highlight { color: var(--accent); }
 
-    /* Ceremony Chip */
+    .highlight {
+      color: var(--accent);
+    }
+
+    /* Date section */
     .date-row {
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin: 18px 0 20px;
       gap: 10px;
     }
+
     .date-chip {
       padding: 7px 14px;
       background: var(--chip-bg);
@@ -116,20 +153,38 @@
       border: 1px solid rgba(148,163,184,0.45);
       font-size: 12px;
       color: var(--text-muted);
-      display: flex; align-items: center; gap: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .date-chip span { color: var(--text-main); font-weight: 500; }
-    .small-note { font-size: 11px; color: var(--text-soft); }
 
-    /* Countdown Boxes */
-    .countdown-shell { margin-bottom: 18px; }
+    .date-chip span {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .small-note {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    /* Countdown */
+    .countdown-shell {
+      margin-bottom: 18px;
+    }
+
     .countdown {
-      display: grid; gap: 12px;
-      grid-template-columns: repeat(4,1fr);
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
     }
+
     @media(max-width:520px) {
-      .countdown { grid-template-columns: repeat(2,1fr); }
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
+
     .time-card {
       padding: 14px 10px 12px;
       border-radius: 20px;
@@ -137,56 +192,33 @@
       background: radial-gradient(circle at top, rgba(248,250,252,0.06), rgba(15,23,42,0.95));
       border: 1px solid rgba(148,163,184,0.55);
     }
-    .value { font-size: 26px; font-weight: 650; margin-bottom: 4px; }
-    .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--text-soft); }
 
-    /* Messages + Progress */
-    .message-row {
-      margin-top: 18px;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: flex-end;
+    .value {
+      font-size: 26px;
+      font-weight: 650;
+      margin-bottom: 4px;
     }
-    .message { font-size: 13px; color: var(--text-muted); max-width: 420px; }
 
-    .progress-row { flex: 1; min-width: 220px; }
-
-    /* PROGRESS BAR — labels inside (Option C) */
-    .progress-modern {
-      position: relative;
-      height: 7px; width: 100%;
-      background: rgba(15,23,42,0.8);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-top: 8px;
+    .label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
     }
-    .progress-modern .progress-fill {
-      height: 100%; width: 0%;
-      background: linear-gradient(90deg,#4f46e5,#facc15,#f97316);
-      transition: width 320ms ease-out;
-    }
-    .progress-label-left, .progress-label-right {
-      position: absolute; top: 50%;
-      transform: translateY(-50%);
-      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-      pointer-events: none;
-      color: rgba(255,255,255,0.78);
-      font-weight: 500;
-    }
-    .progress-label-left { left: 10px; }
-    .progress-label-right { right: 10px; }
 
     /* Footer */
     .footer {
-      margin-top: 22px; padding-top: 12px;
+      margin-top: 22px;
+      padding-top: 12px;
       border-top: 1px solid rgba(31,41,55,0.9);
-      display: flex; justify-content: space-between; font-size: 11px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
       color: var(--text-soft);
       gap: 10px;
       flex-wrap: wrap;
     }
+
     .tiny-pill {
       padding: 3px 9px;
       background: rgba(15,23,42,0.9);
@@ -207,7 +239,7 @@
           <span>House Ceremony Countdown</span>
         </div>
         <div class="house-label">
-          <div class="house-name">Siddramappa C</div>
+          <div class="house-name">OUR NEW HOME</div>
           <div>Griha Pravesh · Feb 06, 2026</div>
         </div>
       </div>
@@ -215,7 +247,7 @@
       <!-- Hero -->
       <section class="hero">
         <h1 class="hero-title">
-          Stepping into our <span class="highlight">new beginning</span>.
+          Stepping into <span class="highlight">our new beginning</span>.
         </h1>
         <p class="hero-subtitle">
           A quiet countdown to the moment we unlock the doors and walk into our new space.
@@ -252,48 +284,37 @@
         </div>
       </section>
 
-      <!-- Message + Progress -->
-      <section class="message-row">
-        <p class="message" id="message">
-          Counting every quiet second until we light the first lamp in our new home.
-        </p>
-
-        <div class="progress-row">
-          <div class="progress-modern">
-            <span class="progress-label-left">Today</span>
-            <div class="progress-fill" id="progress-fill"></div>
-            <span class="progress-label-right">Ceremony</span>
-          </div>
-        </div>
-      </section>
-
       <!-- Footer -->
       <footer class="footer">
         <span id="live-status">Live countdown · synced to your device time</span>
         <span class="tiny-pill">Feb 06, 2026</span>
       </footer>
+
     </div>
   </div>
 
   <script>
     const targetDate = new Date("2026-02-06T06:00:00");
-    const MAX_COUNTDOWN_DAYS = 120; // range in which progress bar fills
 
     const daysEl = document.getElementById("days");
     const hoursEl = document.getElementById("hours");
     const minutesEl = document.getElementById("minutes");
     const secondsEl = document.getElementById("seconds");
     const absoluteEl = document.getElementById("days-absolute");
-    const progressFill = document.getElementById("progress-fill");
     const liveStatusEl = document.getElementById("live-status");
 
     function updateAbsoluteText(now) {
       const targetMidnight = new Date(
-        targetDate.getFullYear(), targetDate.getMonth(), targetDate.getDate()
+        targetDate.getFullYear(),
+        targetDate.getMonth(),
+        targetDate.getDate()
       );
       const nowMidnight = new Date(
-        now.getFullYear(), now.getMonth(), now.getDate()
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
       );
+
       const diffDays = Math.round(
         (targetMidnight - nowMidnight) / (1000 * 60 * 60 * 24)
       );
@@ -302,14 +323,6 @@
       else if (diffDays === 1) absoluteEl.textContent = "Ceremony is tomorrow";
       else if (diffDays === 0) absoluteEl.textContent = "Ceremony is today";
       else absoluteEl.textContent = "Ceremony day has passed";
-    }
-
-    function updateProgress(distanceMs) {
-      const remainingDays = distanceMs / (1000 * 60 * 60 * 24);
-      // 0% when > MAX_COUNTDOWN_DAYS away, 100% when 0 days away
-      let ratio = (MAX_COUNTDOWN_DAYS - remainingDays) / MAX_COUNTDOWN_DAYS;
-      ratio = Math.max(0, Math.min(1, ratio));
-      progressFill.style.width = (ratio * 100).toFixed(2) + "%";
     }
 
     function updateCountdown() {
@@ -321,9 +334,8 @@
         hoursEl.textContent = "00";
         minutesEl.textContent = "00";
         secondsEl.textContent = "00";
-        progressFill.style.width = "100%";
-        liveStatusEl.textContent = "Ceremony day has begun";
         updateAbsoluteText(now);
+        liveStatusEl.textContent = "Ceremony day has begun";
         return;
       }
 
@@ -341,7 +353,6 @@
       minutesEl.textContent = String(minutes).padStart(2, "0");
       secondsEl.textContent = String(seconds).padStart(2, "0");
 
-      updateProgress(distance);
       updateAbsoluteText(now);
       liveStatusEl.textContent = "Live countdown · " + now.toLocaleString();
     }
